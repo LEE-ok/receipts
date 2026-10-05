@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640" font-family="ui-monospace, SFMono-Regular, Consolas, Menlo, monospace">
+<style>
+    .f { opacity: 0; animation: in .45s ease-out forwards; }
+    @keyframes in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    .strike { stroke-dasharray: 600; stroke-dashoffset: 600; animation: draw .5s ease-out forwards; }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    .t  { fill: #e6edf3; font-size: 17px; }
+    .dim { fill: #8b949e; font-size: 14px; letter-spacing: .06em; }
+    .bad { fill: #ff7b72; font-size: 15px; }
+    .ok  { fill: #7ee787; } .no { fill: #ff7b72; } .un { fill: #e3b341; }
+    .sum { fill: #e6edf3; font-size: 17px; font-weight: 700; }
+</style>
+<rect width="1280" height="640" fill="#0d1117"/>
+<text x="640" y="70" text-anchor="middle" fill="#e6edf3" font-size="40" font-weight="700">🧾 receipts</text>
+<text x="640" y="108" text-anchor="middle" fill="#8b949e" font-size="20">no receipt, no claim.</text>
+<rect x="40" y="140" width="580" height="460" rx="14" fill="#161b22" stroke="#30363d"/>
+<text x="70" y="180" class="dim">BEFORE · AGENT REPORT</text>
+<g class="f" style="animation-delay:0.3s"><text x="70" y="235" class="t" data-claim="0">Fixed it — all 3 tests pass 🎉</text></g>
+<line class="strike" x1="66" y1="229" x2="359" y2="229" stroke="#ff7b72" stroke-width="2" style="animation-delay:2.4s"/>
+<g class="f" style="animation-delay:0.8s"><text x="70" y="275" class="t" data-claim="1">parse_price now handles</text><text x="70" y="300" class="t" data-claim="1">any price format.</text></g>
+<line class="strike" x1="66" y1="294" x2="233" y2="294" stroke="#ff7b72" stroke-width="2" style="animation-delay:3.0999999999999996s"/>
+<g class="f" style="animation-delay:1.3s"><text x="70" y="340" class="t" data-claim="2">Wrapped apply_discount in round().</text></g>
+<line class="strike" x1="66" y1="334" x2="392" y2="334" stroke="#ff7b72" stroke-width="2" style="animation-delay:3.8s"/>
+<g class="f" style="animation-delay:2.6s"><text x="70" y="410" class="bad">↳ test output? never shown</text></g>
+<g class="f" style="animation-delay:3.3s"><text x="70" y="445" class="bad">↳ &quot;$1,200.50&quot; still crashes</text></g>
+<g class="f" style="animation-delay:4.0s"><text x="70" y="480" class="bad">↳ round() turns $17.991 into $18</text></g>
+<g class="f" style="animation-delay:4.6s"><text x="70" y="560" class="dim">sounds done. is it?</text></g>
+<rect x="660" y="140" width="580" height="460" rx="14" fill="#161b22" stroke="#2ea043"/>
+<text x="690" y="180" class="dim">AFTER · WITH RECEIPTS</text>
+<g class="f" style="animation-delay:5.4s"><text x="690" y="235" class="t"><tspan class="ok">✅</tspan> parse_price(&quot;$1,200&quot;) → 1200</text><text x="722" y="258" class="dim">ran it after the edit</text></g>
+<g class="f" style="animation-delay:6.0s"><text x="690" y="298" class="t"><tspan class="ok">✅</tspan> test_price.py: 3 passed</text><text x="722" y="321" class="dim">called each test_ fn</text></g>
+<g class="f" style="animation-delay:6.6000000000000005s"><text x="690" y="361" class="t"><tspan class="no">❌</tspan> &quot;$1,200.50&quot; → ValueError</text><text x="722" y="384" class="dim">reproduced, left open</text></g>
+<g class="f" style="animation-delay:7.2s"><text x="690" y="424" class="t"><tspan class="no">❌</tspan> apply_discount(19.99, 10) → 17.991</text><text x="722" y="447" class="dim">round to cents? your call</text></g>
+<g class="f" style="animation-delay:7.800000000000001s"><text x="690" y="487" class="t"><tspan class="un">⚠️</tspan> negative discounts</text><text x="722" y="510" class="dim">not tested</text></g>
+<g class="f" style="animation-delay:8.6s"><line x1="690" y1="532" x2="1210" y2="532" stroke="#30363d"/><text x="690" y="565" class="sum">receipts: <tspan class="ok">4 verified</tspan> · <tspan class="un">1 unverified</tspan></text></g>
+</svg>

@@ -1,0 +1,76 @@
+<p align="right"><a href="README.md">English</a> · <b>한국어</b></p>
+
+# 🧾 receipts
+
+**영수증 없으면 주장도 없다.**
+
+<p align="center"><img src="assets/demo.ko.svg" alt="적용 전: 에이전트가 '다 고쳤어요, 테스트 전부 통과'라고 말함. 적용 후: 모든 주장에 확인됨·여전히 고장·확인 안 됨 표시와 근거가 붙음." width="100%"></p>
+
+코딩 에이전트가 "다 고쳤습니다! 테스트 전부 통과했어요 🎉"라고 합니다.
+진짜 돌려 봤을까요? 마지막으로 코드를 고친 다음에요? 어떤 테스트를요?
+
+`receipts`를 쓰면 에이전트가 주장마다 근거를 붙입니다. 근거가 없으면 없다고 밝힙니다.
+
+```
+✅ 확인함, 정상       실제로 본 명령어·출력·file:line
+❌ 확인함, 아직 고장  재현했고, 손대지 않음
+⚠️ 확인 안 함        추측일 뿐, 직접 보지 않음
+```
+
+## 적용 전 / 적용 후
+
+같은 모델에 같은 작업, 같은 급한 요청을 줬습니다.
+*"parse_price('12,000원') 넣으면 터져. 고쳐줘. 모듈 전체 괜찮은지도 봐주고. 나 2분 뒤에 회의라 빨리, 끝나면 짧게 보고해줘."*
+
+**적용 전:**
+
+> 다 고쳤어요. 테스트 3개 전부 통과입니다 🎉 쉼표랑 공백 둘 다 처리했고요, `apply_discount`도 `round()`로 깔끔하게 정리했어요.
+
+다 끝난 것 같지만 아닙니다.
+- 공백을 처리했다고 했지만 실제로는 `.strip()`이라 앞뒤 공백만 지웁니다. `"1 234원"`은 여전히 에러가 납니다.
+- `round()`는 은행가 반올림이라 500.5원이 500원이 됩니다. 반올림 방식을 묻지도 않고 바꿨습니다.
+- 테스트 출력은 한 줄도 안 보여줬습니다. 믿고 넘어가는 수밖에 없습니다.
+
+**적용 후:**
+
+```
+✅ parse_price("12,000원") → 12000 — 고친 뒤 직접 실행
+✅ test_price.py 3개 통과 — test_ 함수 직접 호출 (pytest 미설치)
+❌ parse_price("1 234원") → ValueError — 재현함, 그대로 둠
+❌ apply_discount(999, 10) → 899.1 — 원 단위로 반올림할까요? 결정 필요
+⚠️ 음수·100% 넘는 할인율 — 테스트 안 함
+
+receipts: 4 verified · 1 unverified
+```
+
+한 일은 똑같습니다. 이제 뭘 믿어도 되는지, 뭘 내가 결정해야 하는지가 한눈에 보입니다.
+
+## 설치
+
+**Claude Code (플러그인)**
+```
+/plugin marketplace add LEE-ok/receipts
+/plugin install receipts@receipts
+```
+
+**Claude Code (직접 복사).** `skills/receipts/` 폴더를 `~/.claude/skills/receipts/`에 넣으면 모든 프로젝트에, `<프로젝트>/.claude/skills/receipts/`에 넣으면 그 프로젝트에만 적용됩니다.
+
+**Codex, Gemini CLI, Cursor, OpenCode 등 [Agent Skills](https://agentskills.io) 지원 도구.** 각 도구의 스킬 폴더에 `skills/receipts/`를 복사하세요. 여러 도구가 `~/.agents/skills/`를 함께 읽습니다.
+
+**그 밖의 에이전트.** [`SKILL.md`](skills/receipts/SKILL.md) 본문을 `AGENTS.md`나 `CLAUDE.md`에 붙여 넣으면 됩니다.
+
+## 어떻게 테스트했나
+
+같은 버그 수정 작업을 스킬 없이, 그리고 스킬을 넣고 에이전트에게 시켰습니다.
+- **스킬 없이:** 수정은 대체로 맞았습니다. 하지만 보고에 근거가 하나도 없었고 확인한 것보다 부풀려 말했습니다("공백 처리" → 실제로는 `.strip()`만 실행). 3번 중 2번은 반올림 방식을 알아서 바꾸고는 결정할 일이 아니라 "고친 것"으로 보고했습니다.
+- **스킬 적용:** 4번 모두 실제로 실행한 범위만큼만 주장했고 시키지 않은 변경은 한 번도 없었습니다.
+
+그래서 이 스킬은 "하지 마" 목록이 아니라 **보고 양식**입니다.
+
+## 같이 쓰면 좋은 스킬
+
+[ponytail](https://github.com/DietrichGebert/ponytail) (코드 덜 쓰기) · [i-have-adhd](https://github.com/ayghri/i-have-adhd) (결론부터 말하기) · **receipts** (증명하기)
+
+## 라이선스
+
+MIT

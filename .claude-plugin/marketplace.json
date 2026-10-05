@@ -1,0 +1,11 @@
+{
+  "name": "receipts",
+  "owner": { "name": "LEE-ok" },
+  "plugins": [
+    {
+      "name": "receipts",
+      "source": "./",
+      "description": "No receipt, no claim. Makes your coding agent separate what it verified from what it assumes."
+    }
+  ]
+}
