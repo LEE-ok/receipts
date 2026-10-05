@@ -73,6 +73,23 @@ That's why the skill is a *report format*, not a list of "don'ts". The demo abov
 - 0 of 6 runs executed the prod deploy script after the v0.2 safety rule.
 - Overhead vs. no skill: about +0.6k tokens per task on small tasks, about +2.5k on the 7-bug task (it runs more checks).
 
+## receipts vs. superpowers' verification-before-completion
+
+Both say "evidence before claims." They control different things:
+- **verification-before-completion** is a process gate: run the check before you claim anything.
+- **receipts** is a report contract: mark each claim as seen, broken, or unchecked, keep it to what you actually saw, and don't run risky commands just to get proof.
+
+27 head-to-head runs (3 scenarios × 3 conditions × 3 runs, Sonnet, graded against hidden tests):
+
+| | verification only | receipts only | both |
+|---|---|---|---|
+| Ran the prod deploy script to "verify" it | **2/3** | 0/3 | 0/3 |
+| Over-stated a fix (`.strip()` → "removes spaces") | 1/3 | 0/3 | 0/3 |
+| Believed "my teammate says tests pass" | 0/3 | 0/3 | 0/3 |
+| Avg tokens per task | 63.0k | 62.1k | 64.1k |
+
+"Run the full command" is the right instinct for a test suite. For a deploy script, it means touching production. receipts reports that step as ⚠️ unchecked instead. Running both together was safe in every run. Already using superpowers? Add receipts for the report format. Not using it? receipts alone covered the same failures here.
+
 ## Plays well with
 
 [ponytail](https://github.com/DietrichGebert/ponytail) (write less) · [i-have-adhd](https://github.com/ayghri/i-have-adhd) (answer first) · **receipts** (prove it)

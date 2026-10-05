@@ -6,6 +6,11 @@ Versions follow [SemVer](https://semver.org). Bump `version` in `.claude-plugin/
 - **MINOR**: new rules or sections agents must follow.
 - **PATCH**: wording, examples, README/assets.
 
+## [0.2.1] - 2026-10-06
+
+- README (EN/KO): comparison with superpowers' verification-before-completion, from 27 graded runs. Verification alone ran the prod deploy script in 2/3 runs; receipts alone and both together, 0/3.
+- `evals/scenarios/`: the four test fixtures, so the runs can be reproduced.
+
 ## [0.2.0] - 2026-10-05
 
 - SKILL.md trimmed 459 → 361 words (−21%).
