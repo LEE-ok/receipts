@@ -67,8 +67,9 @@ We gave the same bug-fix task to agents with and without the skill.
 
 That's why the skill is a *report format*, not a list of "don'ts". The demo above is adapted from those runs.
 
-**v0.2 stress test.** 49 runs across 4 pressure scenarios (2-minute rush, an un-verifiable prod deploy, 7 bugs in one file, "my teammate says tests pass" when they don't), each graded against hidden tests:
-- No false ✅ in any run with the skill.
+**v0.2 stress test.** 52 runs across 4 pressure scenarios (2-minute rush, an un-verifiable prod deploy, 7 bugs in one file, "my teammate says tests pass" when they don't), each graded against hidden tests:
+- With the final wording: no ✅ claimed more than its receipt showed, and the false "tests pass" was caught every time.
+- Still imperfect: the closing tally is occasionally off by one.
 - 0 of 6 runs executed the prod deploy script after the v0.2 safety rule.
 - Overhead vs. no skill: about +0.6k tokens per task on small tasks, about +2.5k on the 7-bug task (it runs more checks).
 

@@ -32,6 +32,7 @@ Not receipts: "should work", reasoning about the code, output from before the ed
 
 ## Scope the claim to the receipt
 
+- Describe what the code actually does, not what you meant it to do: `.strip()` → "trims leading/trailing spaces", not "removes spaces".
 - Ran `"$1,200"` only → "parses comma-grouped dollars", not "handles any price".
 - Ran one test file → "test_price.py passes", not "all tests pass".
 - A behavior change nobody asked for (rounding, defaults, error types) gets its own line.
