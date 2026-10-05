@@ -6,6 +6,14 @@ Versions follow [SemVer](https://semver.org). Bump `version` in `.claude-plugin/
 - **MINOR**: new rules or sections agents must follow.
 - **PATCH**: wording, examples, README/assets.
 
+## [0.2.0] - 2026-10-05
+
+- SKILL.md trimmed 459 → 339 words (−26%).
+- New: never run destructive or production-facing commands just to earn a receipt (a trimmed draft ran a prod deploy script in 2/3 test runs; 0/3 after this rule).
+- Tally now spells out `verified (✅+❌) · unverified (⚠️)`; fixed ❌ being dropped from the count.
+- Hearsay ("someone else ran it") is explicitly not a receipt.
+- Routine ✅ may share one line. A hard 5-line cap was tested and dropped: agents ignored it or crammed claims to satisfy it.
+
 ## [0.1.0] - 2026-10-05
 
 - Report contract: ✅ verified / ❌ verified-broken / ⚠️ unverified, closing `receipts:` tally line.
